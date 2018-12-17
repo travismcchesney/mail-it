@@ -55,7 +55,9 @@ public class SendgridMailer implements Mailer {
 
     private void sendIt(Mail mail) {
         try {
-            client.body(toMap(mail)).asJson();
+            client
+                    .body(toMap(mail))
+                    .asJson();
         } catch (UnirestException e) {
             logger.error("Error sending email", e);
             throw new WebApplicationException("Could not send email", Response.Status.INTERNAL_SERVER_ERROR);
