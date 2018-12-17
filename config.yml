@@ -6,6 +6,7 @@ sendgridApiKey: ${DW_SENDGRID_API_KEY:-}
 swagger:
   resourcePackage: com.mailit.resources
   title: Mail It
+  schemes: [https, http]
 
 logging:
   level: INFO

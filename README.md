@@ -138,6 +138,9 @@ all sorts of useful data points in there that would be great to get onto a dashb
 I've chosen to use a simple factory pattern for creating the proper mail provider instance, but I would consider
 using a more full featured dependency injection framework if things were to get much more complex.
 
+Lastly, both the docker build/push and `now` deployment could be automated in a continuous deployment process. With
+more time, that would be a big win to reduce developer toil.
+
 ### Additional
 
 I leveraged Jackson for input validation handling rather than using a separate validator class. No need to reinvent the
@@ -147,7 +150,16 @@ Unprocessable Entity`.
 I'm using CircleCI for continuous testing of the codebase, which is also integrated into the GitHub PR process.
 
 I'm using unit testing throughout, with mocking where necessary. I feel the unit test coverage is pretty solid, but
-I have not done much in the way of integration testing. My thinking here is that my mocks in the unit tests go right
+I have not done much in the way of integration testing. My thinking here is that the mocks in the unit tests go right
 up to the service boundary, so there's likely pretty minimal ROI with integration testing or using something like
-wiremock to mock out the endpoint. That said, with a bit more time I would definitely add integration tests, because
-they do have value in keeping the code in a healthy, quality state.
+wiremock to mock out the endpoint at this stage. That said, with a bit more time I would definitely add integration
+tests, because they do have value in keeping the code in a healthy, quality state.
+
+### Bonus
+
+I tried to go a bit beyond the requirements by getting the application running in a Docker container and deployed to
+Zeit's `now` service, so it's publicly available to try.
+
+Additionally, rather than updating a configuration file (which you can still do), I implemented the ability to leverage
+environment variables for configuration. I find this to be a more flexible option, especially when deploying to things
+like Docker and Kubernetes.
