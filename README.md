@@ -3,21 +3,22 @@
 # Mail It
 
 ## Building
----
 
 1. Run `mvn package` to build and package up the application
 
 ## Starting
----
 
 The `jar` contains everything needed to run the application. Simply start it like so:
 
 1. `java -jar target/mailit-1.0.jar server config.yml`
 
 ## Using
----
 
 1. The application can now be used at `http://localhost:8080`
+
+## Monitoring
+
+To inspect the health of the application, navigate to `http://localhost:8081/healthcheck`
 
 ## Examples
 
@@ -35,7 +36,3 @@ curl -X POST \
 }'
 ```
 
-Health Check
----
-
-To inspect the health of the application, navigate to `http://localhost:8081/healthcheck`
