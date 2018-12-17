@@ -95,6 +95,7 @@ Documentation for the email API endpoint can be found at `/swagger`.
 To build the docker container for a new version, first run an `mvn package`, then run from the project root:
 
 `docker build -t <repo>/mailit:<version> .`
+
 `docker push <repo>/mailit:<version>`
 
 ## Notes
