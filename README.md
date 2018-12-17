@@ -113,8 +113,7 @@ As for additional libraries, I tried to keep them to a minimum where possible, a
 the Jersey libraries that are provided in Dropwizard.
 
 I leveraged Swagger for API documentation, as it has a really robust tool set and can easily be integrated with
-Dropwizard. Unfortunately, it looks like the package is causing some class loader warnings which, given more time, I'd
-look into further.
+Dropwizard.
 
 Maven is used for building/packaging as it's a natural fit for Java/Dropwizard, and has been around for ages so
 there's plenty of documentation, support, and tooling.
