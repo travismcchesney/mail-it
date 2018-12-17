@@ -2,8 +2,6 @@ package com.mailit.mailer.impl;
 
 import com.mailit.api.Mail;
 import com.mailit.mailer.Mailer;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequestWithBody;
@@ -28,7 +26,7 @@ public class MailgunMailer implements Mailer {
 
     public MailgunMailer(String apiKey) {
         this(Unirest.post(url)
-                .header("accept", "application/json")
+                .header("Accept", "application/json")
                 .basicAuth("api", apiKey));
     }
 
@@ -53,13 +51,15 @@ public class MailgunMailer implements Mailer {
 
     private void sendIt(Mail mail) {
         try {
-            HttpResponse<JsonNode> resp = client
+            client
                     .field("to", mail.getEmailTo())
                     .field("from", mail.getEmailTo())
                     .field("subject", mail.getSubject())
                     .field("text", mail.getPlainBody())
                     .asJson();
+
         } catch (UnirestException e) {
+            logger.error("Error sending email", e);
             throw new WebApplicationException("Could not send email", Response.Status.INTERNAL_SERVER_ERROR);
         }
     }
