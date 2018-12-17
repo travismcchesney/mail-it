@@ -1,23 +1,9 @@
 mailProvider: sendgrid
-sendgridApiKey:
+
 mailgunApiKey: dd11d2e6919a1a953f919e22832f09f0-b3780ee5-f197afca
 sendgridApiKey: SG.E1VkL41eQV2n6NlSToLCHA.7VgQVuSnSRY3wgTNVBLpwEwGZSsu-NstXk1fNVScvcw
+
 logging:
   level: INFO
   loggers:
     com.mailit: DEBUG
-jerseyClient:
-  minThreads: 1
-  maxThreads: 128
-  workQueueSize: 8
-  gzipEnabled: true
-  gzipEnabledForRequests: true
-  chunkedEncodingEnabled: true
-  timeout: 500ms
-  connectionTimeout: 500ms
-  timeToLive: 1h
-  cookiesEnabled: false
-  maxConnections: 1024
-  maxConnectionsPerRoute: 1024
-  keepAlive: 0ms
-  retries: 0
