@@ -1,0 +1,1 @@
+FROM travismcchesney/mailit:1.0
