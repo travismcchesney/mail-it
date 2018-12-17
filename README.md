@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/travismcchesney/mail-it.svg?style=svg)](https://circleci.com/gh/travismcchesney/mail-it)
+[![CircleCI](https://circleci.com/gh/travismcchesney/mail-it.svg?style=shield)](https://circleci.com/gh/travismcchesney/mail-it)
 
 # mailit
 
