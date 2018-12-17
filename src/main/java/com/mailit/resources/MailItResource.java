@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.mailit.api.Mail;
 import com.mailit.mailer.Mailer;
 
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -26,7 +27,7 @@ public class MailItResource {
     @POST
     @Timed
     @Consumes(MediaType.APPLICATION_JSON)
-    public Mail mailIt(Mail mail) {
+    public Mail mailIt(@Valid Mail mail) {
         mailer.mail(mail);
 
         return mail;

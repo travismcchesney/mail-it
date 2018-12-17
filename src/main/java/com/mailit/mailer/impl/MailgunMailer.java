@@ -2,6 +2,7 @@ package com.mailit.mailer.impl;
 
 import com.mailit.api.Mail;
 import com.mailit.mailer.Mailer;
+import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequestWithBody;
@@ -49,15 +50,23 @@ public class MailgunMailer implements Mailer {
         return true;
     }
 
+    /**
+     * Send the email
+     * @param mail The Mail to be sent
+     */
     private void sendIt(Mail mail) {
         try {
-            client
+            HttpResponse r = client
                     .field("to", mail.getEmailTo())
                     .field("from", mail.getEmailTo())
                     .field("subject", mail.getSubject())
                     .field("text", mail.getPlainBody())
                     .asJson();
 
+            if (!Response.Status.Family.familyOf(r.getStatus()).equals(Response.Status.Family.SUCCESSFUL)) {
+                throw new WebApplicationException(String.format("Could not send email: %s", r.getBody().toString()),
+                        Response.Status.INTERNAL_SERVER_ERROR);
+            }
         } catch (UnirestException e) {
             logger.error("Error sending email", e);
             throw new WebApplicationException("Could not send email", Response.Status.INTERNAL_SERVER_ERROR);

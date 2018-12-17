@@ -1,4 +1,4 @@
-package com.mailit.util;
+package com.mailit.api.util;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

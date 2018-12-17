@@ -1,7 +1,7 @@
-mailProvider: sendgrid
+mailProvider: ${DW_MAIL_PROVIDER:-sendgrid}
 
-mailgunApiKey:
-sendgridApiKey:
+mailgunApiKey: ${DW_MAILGUN_API_KEY:-}
+sendgridApiKey: ${DW_SENDGRID_API_KEY:-}
 
 logging:
   level: INFO

@@ -4,7 +4,7 @@ import com.codahale.metrics.health.HealthCheck;
 import com.mailit.mailer.Mailer;
 
 /**
- * ProviderHealthCheck:
+ * ProviderHealthCheck: A health check implementation to retrieve the health of the configured provider.
  * @author Travis McChesney
  */
 public class ProviderHealthCheck extends HealthCheck {

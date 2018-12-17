@@ -1,19 +1,27 @@
 package com.mailit.api;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.mailit.util.MailUtil;
+import com.mailit.api.util.MailUtil;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * Mailer:
  * @author Travis McChesney
  */
 public class Mail {
+    @NotEmpty(message = "A valid 'to' address must be provided")
     private String to;
+    @NotEmpty(message = "A valid 'to_name' must be provided")
     private String toName;
+    @NotEmpty(message = "A valid 'from' address must be provided")
     private String from;
+    @NotEmpty(message = "A valid 'from_name' must be provided")
     private String fromName;
+    @NotEmpty(message = "A valid 'subject' must be provided")
     private String subject;
+    @NotEmpty(message = "A valid 'body' must be provided")
     private String body;
     private String plainBody;
 
@@ -21,7 +29,13 @@ public class Mail {
         // Jackson deserialization
     }
 
-    public Mail(String to, String toName, String from, String fromName, String subject, String body) {
+    @JsonCreator
+    public Mail(@JsonProperty("to") String to,
+                @JsonProperty("to_name") String toName,
+                @JsonProperty("from") String from,
+                @JsonProperty("from_name") String fromName,
+                @JsonProperty("subject") String subject,
+                @JsonProperty("body") String body) {
         this.to = to;
         this.toName = toName;
         this.from = from;
@@ -80,6 +94,7 @@ public class Mail {
         return plainBody;
     }
 
+    @Override
     public String toString() {
         return String.format(
                 "from: %s, fromName: %s, to: %s, toName: %s, subject: %s, body: %s",
@@ -103,12 +118,12 @@ public class Mail {
 
     @Override
     public int hashCode() {
-        int result = to.hashCode();
-        result = 31 * result + toName.hashCode();
-        result = 31 * result + from.hashCode();
-        result = 31 * result + fromName.hashCode();
-        result = 31 * result + subject.hashCode();
-        result = 31 * result + body.hashCode();
+        int result = to == null ? 0 : to.hashCode();
+        result = 31 * result + (toName == null ? 0 : toName.hashCode());
+        result = 31 * result + (from == null ? 0 : from.hashCode());
+        result = 31 * result + (fromName == null ? 0 : fromName.hashCode());
+        result = 31 * result + (subject == null ? 0 : subject.hashCode());
+        result = 31 * result + (body == null ? 0 : body.hashCode());
         return result;
     }
 }

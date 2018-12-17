@@ -46,4 +46,9 @@ public class MailTest {
     public void testEmailFrom() throws Exception {
         assertThat(mail.getEmailFrom()).isEqualTo("Tyler Durden <noreply@paperstreetsoapco.com>");
     }
+
+    @Test
+    public void testToString() throws Exception {
+        assertThat(mail.toString()).contains("from", "to", "fromName", "toName", "subject", "body");
+    }
 }

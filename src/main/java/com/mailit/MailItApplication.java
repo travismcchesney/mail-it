@@ -1,14 +1,16 @@
 package com.mailit;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.mailit.enums.Provider;
+import com.mailit.mailer.MailerFactory;
 import com.mailit.health.ProviderHealthCheck;
 import com.mailit.mailer.Mailer;
-import com.mailit.mailer.impl.MailgunMailer;
-import com.mailit.mailer.impl.SendgridMailer;
 import com.mailit.resources.MailItResource;
 import com.mashape.unirest.http.ObjectMapper;
 import com.mashape.unirest.http.Unirest;
 import io.dropwizard.Application;
+import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
+import io.dropwizard.configuration.SubstitutingSourceProvider;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
@@ -31,6 +33,14 @@ public class MailItApplication extends Application<MailItConfiguration> {
 
     @Override
     public void initialize(final Bootstrap<MailItConfiguration> bootstrap) {
+        // Enable variable substitution with environment variables
+        bootstrap.setConfigurationSourceProvider(
+                new SubstitutingSourceProvider(bootstrap.getConfigurationSourceProvider(),
+                        new EnvironmentVariableSubstitutor(false)
+                )
+        );
+
+        // Bestow object mapping capabilities to the Unirest client
         Unirest.setObjectMapper(new ObjectMapper() {
             private com.fasterxml.jackson.databind.ObjectMapper jacksonObjectMapper
                     = new com.fasterxml.jackson.databind.ObjectMapper();
@@ -56,7 +66,7 @@ public class MailItApplication extends Application<MailItConfiguration> {
     @Override
     public void run(final MailItConfiguration config,
                     final Environment environment) {
-        Mailer mailer = getMailer(config.getMailProvider(), config);
+        Mailer mailer = MailerFactory.getMailer(Provider.fromString(config.getMailProvider()), config);
 
         final MailItResource resource = new MailItResource(mailer);
         final ProviderHealthCheck healthCheck = new ProviderHealthCheck(mailer);
@@ -65,13 +75,4 @@ public class MailItApplication extends Application<MailItConfiguration> {
         environment.healthChecks().register("provider", healthCheck);
     }
 
-    // New up a Mailer based on the provided configuration
-    private static Mailer getMailer(String mailProvider, MailItConfiguration config) {
-        switch (mailProvider) {
-            case "mailgun": return new MailgunMailer(config.getMailgunApiKey());
-            default:
-                // default to sendgrid as our mail provider
-                return new SendgridMailer(config.getSendgridApiKey());
-        }
-    }
 }

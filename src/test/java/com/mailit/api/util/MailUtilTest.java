@@ -1,4 +1,4 @@
-package com.mailit.util;
+package com.mailit.api.util;
 
 import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;

@@ -2,6 +2,7 @@ package com.mailit.mailer.impl;
 
 import com.mailit.api.Mail;
 import com.mailit.mailer.Mailer;
+import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequestWithBody;
@@ -53,17 +54,32 @@ public class SendgridMailer implements Mailer {
         return true;
     }
 
+    /**
+     * Send the email
+     * @param mail The Mail to be sent
+     */
     private void sendIt(Mail mail) {
         try {
-            client
+            HttpResponse r = client
                     .body(toMap(mail))
                     .asJson();
+
+            if (!Response.Status.Family.familyOf(r.getStatus()).equals(Response.Status.Family.SUCCESSFUL)) {
+                throw new WebApplicationException(String.format("Could not send email: %s", r.getBody().toString()),
+                        Response.Status.INTERNAL_SERVER_ERROR);
+            }
         } catch (UnirestException e) {
             logger.error("Error sending email", e);
             throw new WebApplicationException("Could not send email", Response.Status.INTERNAL_SERVER_ERROR);
         }
     }
 
+    /**
+     * Convert a mail object to the Map of params required for Sendgrid. Let's just say JSON building isn't Java's
+     * strong suit.
+     * @param mail The Mail object to convert
+     * @return A Map that can be used for input to Sendgrid's API
+     */
     private Map<String, Object> toMap(Mail mail) {
         return ImmutableMap.<String, Object>builder()
                 .put("personalizations", ImmutableList.<Map<String, Object>>builder()
