@@ -10,11 +10,11 @@ import static org.mockito.Mockito.verify;
 
 public class MailItResourceTest {
     private static final Mail mail = new Mail(
-            "fake@example.com",
-            "Mr. Fake",
-            "noreply@mybrightwheel.com",
-            "Brightwheel",
-            "A Message from Brightwheel",
+            "jack@example.com",
+            "Jack",
+            "noreply@paperstreetsoapco.com",
+            "Tyler Durden",
+            "A Message from Paper Street Soap Co.",
             "<h1>Your Bill</h1><p>$10</p>"
     );
 
