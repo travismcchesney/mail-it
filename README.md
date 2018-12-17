@@ -6,6 +6,10 @@
 
 1. Run `mvn package` to build and package up the application
 
+## Testing
+
+Run `mvn test` to run the unit tests only.
+
 ## Starting
 
 The `jar` contains everything needed to run the application. Simply start it like so:
