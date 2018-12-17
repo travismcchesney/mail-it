@@ -19,16 +19,17 @@ Run `mvn test` to run the unit tests.
 ### Environment Variables
 
 The first (recommended) way to configure the application is with the following environment variables:
-* DW_MAIL_PROVIDER: Specify the email provider to use. One of `sendgrid` or `mailgun`. If omitted, `sendgrid` is the
+* `DW_MAIL_PROVIDER`   : Specify the email provider to use. One of `sendgrid` or `mailgun`. If omitted, `sendgrid` is
+ the
 default
-* DW_MAILGUN_API_KEY: Specify the Mailgun API key, if applicable
-* DW_SENDGRID_API_KEY: Specify the Sendgrid API key, if applicable
+* `DW_MAILGUN_API_KEY` : Specify the Mailgun API key, if applicable
+* `DW_SENDGRID_API_KEY`: Specify the Sendgrid API key, if applicable
 
 ### Config File
 
 Alternatively, you can update the `config.yml` file to set the configuration values:
-* `mailProvider`: Specify the email provider to use. One of `sendgrid` or `mailgun`.
-* `mailgunApiKey`: Specify the Mailgun API key, if applicable
+* `mailProvider`  : Specify the email provider to use. One of `sendgrid` or `mailgun`.
+* `mailgunApiKey` : Specify the Mailgun API key, if applicable
 * `sendgridApiKey`: Specify the Sendgrid API key, if applicable
 
 ## Starting
