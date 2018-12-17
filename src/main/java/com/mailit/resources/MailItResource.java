@@ -38,14 +38,17 @@ public class MailItResource {
     @Timed
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiOperation(value = "Send an email")
-    @ApiResponses({ @ApiResponse(code = 422, message = VALIDATION_ERROR_MESSAGE),
-            @ApiResponse(code = 500, message = ERROR_MESSAGE) })
-    public Mail mailIt(@ApiParam(value = "Email to send", required = true, examples = @Example(value =
-    @ExampleProperty(
-            mediaType = MediaType.APPLICATION_JSON,
-            value = "{to: someone, from: someone}"
-    )
-    )) @Valid Mail mail) {
+    @ApiResponses(
+            {@ApiResponse(code = 422, message = VALIDATION_ERROR_MESSAGE),
+                    @ApiResponse(code = 500, message = ERROR_MESSAGE)})
+    public Mail mailIt(@ApiParam(
+            value = "Email to send",
+            required = true,
+            examples = @Example(
+                    value = @ExampleProperty(
+                            mediaType = MediaType.APPLICATION_JSON,
+                            value = "{to: someone, from: someone}")))
+                       @Valid Mail mail) {
         mailer.mail(mail);
 
         return mail;
