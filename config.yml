@@ -3,6 +3,10 @@ mailProvider: ${DW_MAIL_PROVIDER:-sendgrid}
 mailgunApiKey: ${DW_MAILGUN_API_KEY:-}
 sendgridApiKey: ${DW_SENDGRID_API_KEY:-}
 
+swagger:
+  resourcePackage: com.mailit.resources
+  title: Mail It
+
 logging:
   level: INFO
   loggers:
