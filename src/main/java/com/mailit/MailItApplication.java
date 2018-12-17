@@ -2,9 +2,9 @@ package com.mailit;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mailit.enums.Provider;
-import com.mailit.mailer.MailerFactory;
 import com.mailit.health.ProviderHealthCheck;
 import com.mailit.mailer.Mailer;
+import com.mailit.mailer.MailerFactory;
 import com.mailit.resources.MailItResource;
 import com.mashape.unirest.http.ObjectMapper;
 import com.mashape.unirest.http.Unirest;
@@ -13,6 +13,8 @@ import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.SubstitutingSourceProvider;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.federecio.dropwizard.swagger.SwaggerBundle;
+import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 
 import java.io.IOException;
 
@@ -39,6 +41,13 @@ public class MailItApplication extends Application<MailItConfiguration> {
                         new EnvironmentVariableSubstitutor(false)
                 )
         );
+
+        bootstrap.addBundle(new SwaggerBundle<MailItConfiguration>() {
+            @Override
+            protected SwaggerBundleConfiguration getSwaggerBundleConfiguration(MailItConfiguration configuration) {
+                return configuration.swaggerBundleConfiguration;
+            }
+        });
 
         // Bestow object mapping capabilities to the Unirest client
         Unirest.setObjectMapper(new ObjectMapper() {

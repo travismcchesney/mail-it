@@ -4,13 +4,13 @@
 
 ## Building
 
-First you'll need to have `java sdk >= 1.8.0` and `maven >= 3.2.5`.
+If you want to build it, you'll first need to have `java sdk >= 1.8.0` and `maven >= 3.2.5`.
 
-Then, run `mvn package` to build and package up the application
+Then, run `mvn package` to build and package up the application.
 
 ## Testing
 
-Run `mvn test` to run the unit tests only.
+Run `mvn test` to run the unit tests.
 
 ## Configuring
 
@@ -83,6 +83,10 @@ curl -X POST \
 }'
 ```
 
+## API Documentation
+
+Documentation for the email API endpoint can be found at `/swagger`.
+
 ## Docker
 
 To build the docker container for a new version, run from the project root:
@@ -105,7 +109,15 @@ speed, 4) metrics and monitoring capabilities, and 4) getting going with pretty 
 As for additional libraries, I tried to keep them to a minimum where possible, and use the built-in functionality of
 the Jersey libraries that are provided in Dropwizard.
 
+I leveraged Swagger for API documentation, as it has a really robust tool set and can easily be integrated with
+Dropwizard. Unfortunately, it looks like the package is causing some class loader warnings which, given more time, I'd
+look into further.
+
+Maven is used for building/packaging as it's a natural fit for Java/Dropwizard, and has been around for ages so
+there's plenty of documentation, support, and tooling.
+
 ### Tradeoffs
+
 Firstly, for these minimal requirements, something like Dropwizard or Spring Boot would be a bit overkill, and I'd
 probably tend toward a Node.js application with a smaller footprint. That said, it's hard to know where an
 application is going to go, so it might be beneficial to have a larger, more flexible framework backing it as things
@@ -124,11 +136,15 @@ I've chosen to use a simple factory pattern for creating the proper mail provide
 using a more full featured dependency injection framework if things were to get much more complex.
 
 ### Additional
+
 I leveraged Jackson for input validation handling rather than using a separate validator class. No need to reinvent the
-wheel.
-I'm using CircleCI for continuous testing of the codebase.
+wheel here. Any missing fields on the incoming Mail object will be listed, and the response status will be `422
+Unprocessable Entity`.
+
+I'm using CircleCI for continuous testing of the codebase, which is also integrated into the GitHub PR process.
+
 I'm using unit testing throughout, with mocking where necessary. I feel the unit test coverage is pretty solid, but
 I have not done much in the way of integration testing. My thinking here is that my mocks in the unit tests go right
 up to the service boundary, so there's likely pretty minimal ROI with integration testing or using something like
-wiremock to mock out the endpoint. That said, with a bit more time I would definitely add some integration tests,
-because they do have value, just maybe diminishing a little in this case.
+wiremock to mock out the endpoint. That said, with a bit more time I would definitely add integration tests, because
+they do have value in keeping the code in a healthy, quality state.

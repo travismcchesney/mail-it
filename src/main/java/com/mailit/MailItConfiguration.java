@@ -3,6 +3,7 @@ package com.mailit;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
 import io.dropwizard.client.JerseyClientConfiguration;
+import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -12,6 +13,9 @@ import javax.validation.constraints.NotNull;
  * @author Travis McChesney
  */
 public class MailItConfiguration extends Configuration {
+    @JsonProperty("swagger")
+    public SwaggerBundleConfiguration swaggerBundleConfiguration;
+
     @Valid
     @NotNull
     private JerseyClientConfiguration jerseyClient = new JerseyClientConfiguration();

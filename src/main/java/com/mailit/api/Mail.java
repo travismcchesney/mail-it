@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mailit.api.util.MailUtil;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -45,11 +46,13 @@ public class Mail {
     }
 
     @JsonProperty
+    @ApiModelProperty(value = "recipient email address")
     public String getTo() {
         return to;
     }
 
     @JsonProperty(value = "to_name")
+    @ApiModelProperty(value = "recipient name")
     public String getToName() {
         return toName;
     }
@@ -60,11 +63,13 @@ public class Mail {
     }
 
     @JsonProperty
+    @ApiModelProperty(value = "sender email address")
     public String getFrom() {
         return from;
     }
 
     @JsonProperty(value = "from_name")
+    @ApiModelProperty(value = "sender name")
     public String getFromName() {
         return fromName;
     }
@@ -75,11 +80,13 @@ public class Mail {
     }
 
     @JsonProperty
+    @ApiModelProperty(value = "subject")
     public String getSubject() {
         return subject;
     }
 
     @JsonProperty
+    @ApiModelProperty(value = "email body; will be converted to plain text")
     public String getBody() {
         return body;
     }
