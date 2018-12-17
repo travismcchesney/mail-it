@@ -9,13 +9,10 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
- * Configuration:
+ * Configuration: POJO representing the application's configuration.
  * @author Travis McChesney
  */
 public class MailItConfiguration extends Configuration {
-    @JsonProperty("swagger")
-    public SwaggerBundleConfiguration swaggerBundleConfiguration;
-
     @Valid
     @NotNull
     private JerseyClientConfiguration jerseyClient = new JerseyClientConfiguration();
@@ -23,6 +20,9 @@ public class MailItConfiguration extends Configuration {
     private String mailProvider;
     private String sendgridApiKey;
     private String mailgunApiKey;
+
+    @JsonProperty("swagger")
+    public SwaggerBundleConfiguration swaggerBundleConfiguration;
 
     @JsonProperty
     public String getMailProvider() {

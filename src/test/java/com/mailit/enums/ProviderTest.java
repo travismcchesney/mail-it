@@ -18,6 +18,8 @@ public class ProviderTest {
 
         assertThat(Provider.fromString("mailgun")).isEqualTo(Provider.MAILGUN);
         assertThat(Provider.fromString("mAiLgUn")).isEqualTo(Provider.MAILGUN);
+
+        assertThat(Provider.fromString("foo")).isNull();
     }
 
     @Test

@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
- * Mailer:
+ * Mailer: Domain object representing an email to be sent.
  * @author Travis McChesney
  */
 public class Mail {

@@ -3,7 +3,7 @@ package com.mailit.mailer;
 import com.mailit.api.Mail;
 
 /**
- * Mailer: Interface for an email provider
+ * Mailer: Interface for an email provider (Mailer)
  * @author Travis McChesney
  */
 public interface Mailer {

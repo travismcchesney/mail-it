@@ -1,7 +1,7 @@
 package com.mailit.enums;
 
 /**
- * Provider:
+ * Provider: Enumeration of that valid, supported email providers.
  * @author Travis McChesney
  */
 public enum Provider {

@@ -5,7 +5,6 @@ import com.mailit.mailer.Mailer;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequestWithBody;
-import com.mashape.unirest.request.body.MultipartBody;
 import com.mashape.unirest.request.body.RequestBodyEntity;
 import org.junit.Test;
 
@@ -13,7 +12,6 @@ import javax.ws.rs.WebApplicationException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyMap;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -57,14 +55,12 @@ public class SendgridMailerTest {
     @Test(expected = WebApplicationException.class)
     public void testMailException() throws Exception {
         HttpRequestWithBody hrwb = mock(HttpRequestWithBody.class);
-        MultipartBody mpb = mock(MultipartBody.class);
-        HttpResponse r = mock(HttpResponse.class);
+        RequestBodyEntity rbe = mock(RequestBodyEntity.class);
 
-        when(hrwb.field(anyString(), anyString())).thenReturn(mpb);
-        when(mpb.field(anyString(), anyString())).thenReturn(mpb);
-        when(mpb.asJson()).thenThrow(new UnirestException("Something has gone wrong"));
+        when(hrwb.body(anyMap())).thenReturn(rbe);
+        when(rbe.asJson()).thenThrow(new UnirestException("Something has gone wrong"));
 
-        Mailer mailer = new MailgunMailer(hrwb);
+        Mailer mailer = new SendgridMailer(hrwb);
 
         mailer.mail(mail);
     }
@@ -72,16 +68,15 @@ public class SendgridMailerTest {
     @Test(expected = WebApplicationException.class)
     public void testMail400() throws Exception {
         HttpRequestWithBody hrwb = mock(HttpRequestWithBody.class);
-        MultipartBody mpb = mock(MultipartBody.class);
+        RequestBodyEntity rbe = mock(RequestBodyEntity.class);
         HttpResponse r = mock(HttpResponse.class);
 
-        when(hrwb.field(anyString(), anyString())).thenReturn(mpb);
-        when(mpb.field(anyString(), anyString())).thenReturn(mpb);
-        when(mpb.asJson()).thenReturn(r);
+        when(hrwb.body(anyMap())).thenReturn(rbe);
+        when(rbe.asJson()).thenReturn(r);
         when(r.getStatus()).thenReturn(400);
         when(r.getBody()).thenReturn("There was a 400 error");
 
-        Mailer mailer = new MailgunMailer(hrwb);
+        Mailer mailer = new SendgridMailer(hrwb);
 
         mailer.mail(mail);
     }
