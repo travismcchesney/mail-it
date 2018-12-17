@@ -14,6 +14,10 @@ import io.dropwizard.setup.Environment;
 
 import java.io.IOException;
 
+/**
+ * MailItApplication: The main application entry point class
+ * @author Travis McChesney
+ */
 public class MailItApplication extends Application<MailItConfiguration> {
 
     public static void main(final String[] args) throws Exception {

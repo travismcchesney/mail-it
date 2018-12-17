@@ -36,11 +36,11 @@ curl -X POST \
   http://localhost:8080/email \
   -H 'Content-Type: application/json' \
   -d '{
-	"to": "fake@example.com",
-	"to_name": "Mr. Fake",
-	"from": "noreply@mybrightwheel.com",
-	"from_name": "Brightwheel",
-	"subject": "A Message from Brightwheel",
+	"to": "jack@example.com",
+	"to_name": "Jack",
+	"from": "noreply@paperstreetsoapco.com",
+	"from_name": "Tyler Durden",
+	"subject": "A Message from Paper Street Soap Co.",
 	"body": "<h1>Your Bill</h1><p>$10</p>"
 }'
 ```

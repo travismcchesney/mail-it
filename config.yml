@@ -1,7 +1,7 @@
 mailProvider: sendgrid
 
-mailgunApiKey: dd11d2e6919a1a953f919e22832f09f0-b3780ee5-f197afca
-sendgridApiKey: SG.E1VkL41eQV2n6NlSToLCHA.7VgQVuSnSRY3wgTNVBLpwEwGZSsu-NstXk1fNVScvcw
+mailgunApiKey:
+sendgridApiKey:
 
 logging:
   level: INFO
