@@ -1,1 +1,1 @@
-FROM travismcchesney/mailit:1.1
+FROM travismcchesney/mailit:0.0.1

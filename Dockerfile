@@ -2,7 +2,7 @@ FROM openjdk:8-jdk-alpine
 
 MAINTAINER Travis McChesney <travisj37@gmail.com>
 
-COPY ./target/mailit-1.1.jar /usr/local/mailit/mailit.jar
+COPY ./target/mailit-0.0.1.jar /usr/local/mailit/mailit.jar
 COPY ./config.yml /etc/mailit/config.yml
 
 EXPOSE 8080

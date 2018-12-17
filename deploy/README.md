@@ -7,9 +7,12 @@ use the Dockerfile to build the project. In our case, the image has already been
 Deploying to `now`
 ---
 
-From the `deploy/` directory, using the `now` CLI, run:
+From the `deploy/` directory, using the `now` CLI, run (using mailgun, for example):
 
-`now --docker`
+`now \
+  -e "DW_MAIL_PROVIDER=mailgun" \
+  -e "DW_MAILGUN_API_KEY=<mailgun-api-key>" \
+  --docker`
 
 Alias the new deployment to our domain:
 

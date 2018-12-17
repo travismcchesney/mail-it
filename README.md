@@ -1,6 +1,8 @@
+[![version](http://img.shields.io/badge/version-v0.0.1-blue.svg)](#)
+[![versioning](http://img.shields.io/badge/versioning-semver-blue.svg)](http://semver.org/)
 [![CircleCI](https://circleci.com/gh/travismcchesney/mail-it.svg?style=shield)](https://circleci.com/gh/travismcchesney/mail-it)
 
-# Mail It
+# Mail It | provider agnostic email-o-matic
 
 ## Building
 
@@ -38,7 +40,7 @@ using the pre-built docker container.
 
 The `jar` contains everything needed to run the application. Simply start it like so:
 
-`java -jar target/mailit-1.1.jar server config.yml`
+`java -jar target/mailit-0.0.1.jar server config.yml`
 
 > NOTE: Either environment variables or config.yml configuration work when running with java
 
@@ -52,7 +54,7 @@ docker run -d \
  -p 8080:8080 -p 8081:8081 \
  -e "DW_MAIL_PROVIDER=mailgun" \
  -e "DW_MAILGUN_API_KEY=<mailgun-api-key>" \
- travismcchesney/mailit:1.1
+ travismcchesney/mailit:0.0.1
 ```
 
 > NOTE: Environment variables are required when running with docker
@@ -89,11 +91,10 @@ Documentation for the email API endpoint can be found at `/swagger`.
 
 ## Docker
 
-To build the docker container for a new version, run from the project root:
+To build the docker container for a new version, first run an `mvn package`, then run from the project root:
 
 `docker build -t <repo>/mailit:<version> .`
-
-`docker push`
+`docker push <repo>/mailit:<version>`
 
 ## Notes
 
