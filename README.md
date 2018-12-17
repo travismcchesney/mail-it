@@ -2,7 +2,7 @@
 [![versioning](http://img.shields.io/badge/versioning-semver-blue.svg)](http://semver.org/)
 [![CircleCI](https://circleci.com/gh/travismcchesney/mail-it.svg?style=shield)](https://circleci.com/gh/travismcchesney/mail-it)
 
-# Mail It | provider agnostic email-o-matic
+# Mail It <sub><sup>| Provider agnostic email-o-matic</sup></sub>
 
 ## Building
 
