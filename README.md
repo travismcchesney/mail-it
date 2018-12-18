@@ -10,18 +10,21 @@ If you want to build it, you'll first need to have `java sdk >= 1.8.0` and `mave
 
 Then, run `mvn package` to build and package up the application.
 
+> NOTE: If you don't want to build it, there is a docker image available (see the [Docker](#docker) section below)
+
 ## Testing
 
 Run `mvn test` to run the unit tests.
 
 ## Configuring
 
+In order to select which email provider to use for sending email, there are two options:
+
 ### Environment Variables
 
 The first (recommended) way to configure the application is with the following environment variables:
 * `DW_MAIL_PROVIDER`   : Specify the email provider to use. One of `sendgrid` or `mailgun`. If omitted, `sendgrid` is
- the
-default
+ the default
 * `DW_MAILGUN_API_KEY` : Specify the Mailgun API key, if applicable
 * `DW_SENDGRID_API_KEY`: Specify the Sendgrid API key, if applicable
 
@@ -62,9 +65,9 @@ docker run -d \
 
 ## Using
 
-If running locally with the Jar or docker, the application can now be used at `http://localhost:8080`
+If running locally with the jar or docker image, the application can now be used at `http://localhost:8080`
 
-To try things out without running locally, use `https://mailit.travis.technology`.
+To try things out without running locally, the app is deployed and accessible at `https://mailit.travis.technology`.
 
 ## Monitoring
 
@@ -90,7 +93,7 @@ curl -X POST \
 
 Documentation for the email API endpoint can be found at `/swagger`.
 
-## Docker
+## Publishing a Docker Image
 
 To build the docker container for a new version, first run an `mvn package`, then run from the project root:
 
@@ -105,9 +108,9 @@ To build the docker container for a new version, first run an `mvn package`, the
 My first inclination was to use something like Express with Node.js, as you can get up and running with minimal
 dependencies and time. However, given the requirement to show good OO principles, I decided against that route, as it
  would definitely be more functional in nature.
-I landed on using Java with Dropwizard. Java is my strongest OO language at the moment, and Dropwizard was a natural
-fit for the task. Things I looked at with Dropwizard were 1) great documentation, 2) decently large community, 3)
-speed, 4) metrics and monitoring capabilities, and 4) getting going with pretty minimal effort.
+I landed on using Java with Dropwizard. Java is my strongest OO language, and Dropwizard was a natural fit for the task.
+Things I looked at with Dropwizard were 1) great documentation, 2) decently large community, 3)
+speed (throughput), 4) metrics and monitoring capabilities, and 5) getting going with pretty minimal effort.
 
 As for additional libraries, I tried to keep them to a minimum where possible, and use the built-in functionality of
 the Jersey libraries that are provided in Dropwizard.
@@ -115,8 +118,8 @@ the Jersey libraries that are provided in Dropwizard.
 I leveraged Swagger for API documentation, as it has a really robust tool set and can easily be integrated with
 Dropwizard.
 
-Maven is used for building/packaging as it's a natural fit for Java/Dropwizard, and has been around for ages so
-there's plenty of documentation, support, and tooling.
+Maven is used for building and packaging the application, as it's a solid choice for Java/Dropwizard, and has been
+around for ages so there's plenty of documentation, support, and tooling.
 
 ### Tradeoffs
 
@@ -137,6 +140,11 @@ all sorts of useful data points in there that would be great to get onto a dashb
 I've chosen to use a simple factory pattern for creating the proper mail provider instance, but I would consider
 using a more full featured dependency injection framework if things were to get much more complex.
 
+Error handling is another area on which I'd like to spend more time. The response from the provider endpoint is
+currently only verified to have a success response code (200-299). If it's not, then an error is returned to the user
+with the response body from the endpoint. A more thorough examination of the possible error responses from the endpoint
+is necessary in order to fully communicate problems with consumers of the application.
+
 Lastly, both the docker build/push and `now` deployment could be automated in a continuous deployment process. With
 more time, that would be a big win to reduce developer toil.
 
@@ -148,11 +156,11 @@ Unprocessable Entity`.
 
 I'm using CircleCI for continuous testing of the codebase, which is also integrated into the GitHub PR process.
 
-I'm using unit testing throughout, with mocking where necessary. I feel the unit test coverage is pretty solid, but
-I have not done much in the way of integration testing. My thinking here is that the mocks in the unit tests go right
-up to the service boundary, so there's likely pretty minimal ROI with integration testing or using something like
-wiremock to mock out the endpoint at this stage. That said, with a bit more time I would definitely add integration
-tests, because they do have value in keeping the code in a healthy, quality state.
+JUnit is used for unit testing throughout, with mocking where necessary. I feel the unit test coverage is pretty solid,
+but I have not done much in the way of integration testing. The mocks in the unit tests go right up to the service
+boundary, so there's likely pretty minimal ROI with full integration testing or using something like wiremock to mock
+out the endpoint at this stage. That said, with a bit more time, and in a production codebase, I would definitely add
+integration tests, because they do have value in keeping the code in a healthy, quality state.
 
 ### Bonus
 
