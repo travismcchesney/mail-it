@@ -44,9 +44,11 @@ above, or by using the pre-built docker container.
 
 The `jar` contains everything needed to run the application. Simply start it like so (with mailgun, for example):
 
-```DW_MAIL_PROVIDER=mailgun \
+```
+DW_MAIL_PROVIDER=mailgun \
 DW_MAILGUN_API_KEY=<mailgun-api-key> \
-java -jar target/mailit-0.0.1.jar server config.yml```
+java -jar target/mailit-0.0.1.jar server config.yml
+```
 
 > NOTE: Either environment variables or config.yml configuration work when running with java. If you're going to run
 > without environment variables, be sure to update the `config.yml` first
