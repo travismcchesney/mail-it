@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mailit.api.util.MailUtil;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -12,11 +13,13 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author Travis McChesney
  */
 public class Mail {
-    @NotEmpty(message = "A valid 'to' address must be provided")
+    @NotEmpty(message = "A valid 'to' email address must be provided")
+    @Email(message = "A valid 'to' email address must be provided")
     private String to;
     @NotEmpty(message = "A valid 'to_name' must be provided")
     private String toName;
-    @NotEmpty(message = "A valid 'from' address must be provided")
+    @NotEmpty(message = "A valid 'from' email address must be provided")
+    @Email(message = "A valid 'from' email address must be provided")
     private String from;
     @NotEmpty(message = "A valid 'from_name' must be provided")
     private String fromName;
