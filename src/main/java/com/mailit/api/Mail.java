@@ -13,19 +13,19 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author Travis McChesney
  */
 public class Mail {
-    @NotEmpty(message = "A valid 'to' email address must be provided")
+    @NotEmpty(message = "A 'to' email address must be provided")
     @Email(message = "A valid 'to' email address must be provided")
     private String to;
     @NotEmpty(message = "A valid 'to_name' must be provided")
     private String toName;
-    @NotEmpty(message = "A valid 'from' email address must be provided")
+    @NotEmpty(message = "A 'from' email address must be provided")
     @Email(message = "A valid 'from' email address must be provided")
     private String from;
-    @NotEmpty(message = "A valid 'from_name' must be provided")
+    @NotEmpty(message = "A 'from_name' must be provided")
     private String fromName;
-    @NotEmpty(message = "A valid 'subject' must be provided")
+    @NotEmpty(message = "A 'subject' must be provided")
     private String subject;
-    @NotEmpty(message = "A valid 'body' must be provided")
+    @NotEmpty(message = "A 'body' must be provided")
     private String body;
     private String plainBody;
 
