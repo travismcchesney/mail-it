@@ -9,10 +9,12 @@ Deploying to `now`
 
 From the `deploy/` directory, using the `now` CLI, run (using mailgun, for example):
 
-`now \
+```
+now \
   -e "DW_MAIL_PROVIDER=mailgun" \
   -e "DW_MAILGUN_API_KEY=<mailgun-api-key>" \
-  --docker`
+  --docker
+  ```
 
 Alias the new deployment to our domain:
 
