@@ -43,6 +43,45 @@ public class MailItResourceTest {
     }
 
     @Test
+    public void testPostMailWithInvalidEmailAddress() {
+        Mail invalidTo = new Mail(
+                "jack@",
+                "Jack",
+                "noreply@paperstreetsoapco.com",
+                "Tyler Durden",
+                "A Message from Paper Street Soap Co.",
+                "<h1>Your Bill</h1><p>$10</p>"
+        );
+
+        Response r = resources
+                .client()
+                .target("/email")
+                .request()
+                .post(Entity.json(invalidTo));
+
+        assertThat(r.getStatus()).isEqualTo(422);
+        assertThat(r.readEntity(HashMap.class).size()).isEqualTo(1);
+
+        Mail invalidFrom = new Mail(
+                "jack@example.com",
+                "Jack",
+                "noreply@paperstreetsoapco",
+                "Tyler Durden",
+                "A Message from Paper Street Soap Co.",
+                "<h1>Your Bill</h1><p>$10</p>"
+        );
+
+        r = resources
+                .client()
+                .target("/email")
+                .request()
+                .post(Entity.json(invalidTo));
+
+        assertThat(r.getStatus()).isEqualTo(422);
+        assertThat(r.readEntity(HashMap.class).size()).isEqualTo(1);
+    }
+
+    @Test
     public void testPostMailWithMissingFields() {
         Mail missingTo = new Mail(
                 null,
