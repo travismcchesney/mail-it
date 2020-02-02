@@ -42,11 +42,7 @@ public class SendgridMailer implements Mailer {
 
     @Override
     public void mail(Mail mail) {
-        logger.debug("Mailing with Sendgrid");
-
         sendIt(mail);
-
-        logger.debug("Mailed with Sendgrid");
     }
 
     @Override

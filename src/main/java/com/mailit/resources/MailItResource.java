@@ -10,6 +10,8 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.Example;
 import io.swagger.annotations.ExampleProperty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
@@ -27,11 +29,13 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class MailItResource {
     private final Mailer mailer;
+    private final Logger logger;
     private static final String VALIDATION_ERROR_MESSAGE = "The Mail object is malformed in some way";
     private static final String ERROR_MESSAGE = "Something has gone wrong internally that we need to look into";
 
     public MailItResource(Mailer mailer) {
         this.mailer = mailer;
+        this.logger = LoggerFactory.getLogger(mailer.getClass());
     }
 
     @POST
@@ -49,7 +53,9 @@ public class MailItResource {
                             mediaType = MediaType.APPLICATION_JSON,
                             value = "{to: someone, from: someone}")))
                        @Valid Mail mail) {
+        logger.debug("Mailing with " + mailer.getName());
         mailer.mail(mail);
+        logger.debug("Mailed with " + mailer.getName());
 
         return mail;
     }

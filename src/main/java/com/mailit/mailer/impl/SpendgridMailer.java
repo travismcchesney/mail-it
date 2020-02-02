@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response;
 import java.util.Map;
 
 /**
- * MailGunMailer: Mailer implementation for the Mailgun mail provider
+ * SpendgridMailer: Mailer implementation for the Spendgrid mail provider
  * @author Travis McChesney
  */
 public class SpendgridMailer implements Mailer {
@@ -40,11 +40,7 @@ public class SpendgridMailer implements Mailer {
 
     @Override
     public void mail(Mail mail) {
-        logger.debug("Mailing with " + getName());
-
         sendIt(mail);
-
-        logger.debug("Mailed with " + getName());
     }
 
     @Override

@@ -7,7 +7,8 @@ package com.mailit.enums;
 public enum Provider {
     SENDGRID("sendgrid"),
     MAILGUN("mailgun"),
-    SPENDGRID("spendgrid");
+    SPENDGRID("spendgrid"),
+    SNAILGUN("snailgun");
 
     private String provider;
 

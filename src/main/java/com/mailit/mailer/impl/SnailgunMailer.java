@@ -6,34 +6,36 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequestWithBody;
+import jersey.repackaged.com.google.common.collect.ImmutableMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
+import java.util.Map;
 
 /**
- * MailGunMailer: Mailer implementation for the Mailgun mail provider
+ * SnailGunMailer: Mailer implementation for the Snailgun mail provider
  * @author Travis McChesney
  */
-public class MailgunMailer implements Mailer {
+public class SnailgunMailer implements Mailer {
     private final com.mashape.unirest.request.HttpRequestWithBody client;
     private final Logger logger = LoggerFactory.getLogger(getClass());
-    private static final String url = "https://api.mailgun.net/v3/mail.travis.technology/messages";
+    private static final String url = "https://bw-interview-emails.herokuapp.com/snailgun/emails";
 
-    public MailgunMailer(HttpRequestWithBody client) {
+    public SnailgunMailer(HttpRequestWithBody client) {
         this.client = client;
     }
 
-    public MailgunMailer(String apiKey) {
+    public SnailgunMailer(String apiKey) {
         this(Unirest.post(url)
-                .header("Accept", "application/json")
-                .basicAuth("api", apiKey));
+                .header("Content-Type", "application/json")
+                .header("X-Api-Key", apiKey));
     }
 
     @Override
     public String getName() {
-        return "Mailgun";
+        return "Snailgun";
     }
 
     @Override
@@ -53,10 +55,7 @@ public class MailgunMailer implements Mailer {
     private void sendIt(Mail mail) {
         try {
             HttpResponse r = client
-                    .field("to", mail.getEmailTo())
-                    .field("from", mail.getEmailTo())
-                    .field("subject", mail.getSubject())
-                    .field("text", mail.getPlainBody())
+                    .body(toMap(mail))
                     .asJson();
 
             if (!Response.Status.Family.familyOf(r.getStatus()).equals(Response.Status.Family.SUCCESSFUL)) {
@@ -67,5 +66,22 @@ public class MailgunMailer implements Mailer {
             logger.error("Error sending email", e);
             throw new WebApplicationException("Could not send email", Response.Status.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    /**
+     * Convert a mail object to the Map of params required for Snailgun. Let's just say JSON building isn't Java's
+     * strong suit.
+     * @param mail The Mail object to convert
+     * @return A Map that can be used for input to Snailgun's API
+     */
+    private Map<String, Object> toMap(Mail mail) {
+        return ImmutableMap.<String, Object>builder()
+                .put("from_email", mail.getFrom())
+                .put("from_name", mail.getFromName())
+                .put("to_email", mail.getTo())
+                .put("to_name", mail.getToName())
+                .put("subject", mail.getSubject())
+                .put("body", mail.getPlainBody())
+                .build();
     }
 }

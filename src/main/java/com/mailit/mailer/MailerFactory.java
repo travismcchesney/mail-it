@@ -5,6 +5,7 @@ import com.mailit.enums.Provider;
 import com.mailit.mailer.impl.MailgunMailer;
 import com.mailit.mailer.impl.SendgridMailer;
 import com.mailit.mailer.impl.SpendgridMailer;
+import com.mailit.mailer.impl.SnailgunMailer;
 
 /**
  * MailerFactory: Create new Mailers based on the requested service provider
@@ -15,6 +16,7 @@ public class MailerFactory {
         switch (provider) {
             case MAILGUN: return new MailgunMailer(config.getMailgunApiKey());
             case SPENDGRID: return new SpendgridMailer(config.getSpendgridApiKey());
+            case SNAILGUN: return new SnailgunMailer(config.getSnailgunApiKey());
             default:
                 // default to sendgrid as our mail provider
                 return new SendgridMailer(config.getSendgridApiKey());
