@@ -20,6 +20,7 @@ public class MailItConfiguration extends Configuration {
     private String mailProvider;
     private String sendgridApiKey;
     private String mailgunApiKey;
+    private String spendgridApiKey;
 
     @JsonProperty("swagger")
     public SwaggerBundleConfiguration swaggerBundleConfiguration;
@@ -37,6 +38,11 @@ public class MailItConfiguration extends Configuration {
     @JsonProperty
     public String getMailgunApiKey() {
         return mailgunApiKey;
+    }
+    
+    @JsonProperty
+    public String getSpendgridApiKey() {
+        return spendgridApiKey;
     }
 
     @JsonProperty("jerseyClient")

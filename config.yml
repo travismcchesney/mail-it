@@ -1,7 +1,9 @@
-mailProvider: ${DW_MAIL_PROVIDER:-sendgrid}
+mailProvider: snailgun
 
 mailgunApiKey: ${DW_MAILGUN_API_KEY:-}
 sendgridApiKey: ${DW_SENDGRID_API_KEY:-}
+spendgridApiKey: api_key_WeIff2IQtXguwRi3E54gar0Q
+snailgunApiKey: api_key_lrEG1Pkn6mN1SVnKpFFO6HAB
 
 swagger:
   resourcePackage: com.mailit.resources
